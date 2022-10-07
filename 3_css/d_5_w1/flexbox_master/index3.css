@@ -1,0 +1,111 @@
+/* common */
+* {
+    
+    box-sizing: border-box;
+}
+
+body { 
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    /* 
+        vh? 처음 보는 단위가 등장했습니다!
+        - vh: viewport height의 약자로 브라우저 1vh는 브라우저 뷰포트 높이의 1/100을 의미해요.
+        - 즉, 100vh는 브라우저 뷰포트 높이와 같아요. body 태그의 높이를 브라우저 뷰포트의 높이와 같게 설정했어요!
+        - 반응형 웹에 대해 학습하실 때 배우게 될 단위입니다 :)
+    */
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+h1, p {
+    margin: 0;
+}
+
+p {
+    text-align: justify;
+}
+
+
+.card-list{
+    display: flex;
+    width: 1600px;
+    height: 700px;
+    justify-content: space-evenly;
+    align-items:center;
+    padding: 50px;
+    background-color: black;
+}
+.card{
+    
+    border-radius: 5%;
+    background-color: white;
+    width: 350px;
+    height: 450px;
+    display:flex;
+    flex-direction: column;   
+}
+.card1{
+    border-radius: 5%;
+
+    background-color: white;
+    width: 350px;
+    height: 450px;
+    display:flex;
+    flex-direction: column-reverse;
+
+    
+}
+img{
+    margin: 0 auto;
+
+    width: 200px;
+    height: 200px;
+}
+.title{
+    font-size: 30px;
+    text-align: center;
+    margin: 10px 2px;
+}
+.caption{
+    margin: 0 10px;
+    text-align: center;
+
+}
+.card1:hover{
+    transform: translate(0,-50px);
+    box-shadow: 10px 10px 10px rgba(245, 238, 238, 0.4);
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;}
+.card:hover{
+    transform: translate(0,-50px);
+    box-shadow: 10px 10px 10px rgba(245, 238, 238, 0.4);
+}
+#kiwoom:hover>.desc>.title{
+    color: orangered;
+    transform: translate(0,-30px);
+    transform: skew(-20deg);
+
+}#lotte:hover>.desc>.title{
+    color: navy;
+    transform: translate(0,-30px);
+    transform: skew(-20deg);
+
+}
+#lg:hover>.desc>.title{
+    color: violet;
+    transform: translate(0,-30px);
+    transform: skew(-20deg);
+
+}
+#hanwha:hover>.desc>.title{
+    color: orange;
+    transform: translate(0,-30px);
+    transform: skew(-20deg);
+
+}
+/* TODO: Slack에서 실행영상을 참고해 제작해주세요~ */

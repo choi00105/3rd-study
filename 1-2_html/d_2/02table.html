@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>table 태그</title>
+</head>
+<body>
+    <h1>가격표</h1>
+    <!-- <thaed>:제목,<tbody>:내용,<tfoot>결과 표시 하는 태그 안쓰면 자동으로 넣어줌 -->
+    <table border="1" cellspacing="5" cellpadding="5">
+        <tr>
+            <th>메뉴</th>
+            <th>가격</th>
+            <th>비고</th>
+        </tr>
+        <tr>
+            <td>국물떡볶이</td>
+            <td>5000원</td>
+            <td>2인이상 주문가능</td>
+        </tr>
+        <tr>
+            <td>모듬튀김</td>
+            <td>4000원</td>
+            <td>오징어,김말이,야채</td>
+        </tr>
+        <tr>
+            <td>순대</td>
+            <td>4000원</td>
+            <td>내장없음</td>
+        </tr>
+    </table>
+    <h1>가격표 NEW</h1>
+    <table border="1" cellspacing="5" cellpadding="1">
+        <tr>
+            <th>메뉴</th>
+            <th>가격</th>
+            <th>비고</th>
+        </tr>
+        <tr>
+            <td>국물떡볶이</td>
+            <td>5000원</td>
+            <td>2인이상 주문가능</td>
+        </tr>
+        <tr>
+            <td>모듬튀김</td>
+            <td rowspan="2">4000원</td>
+            <td>오징어,김말이,야채</td>
+        </tr>
+        <tr>
+            <td>순대</td>
+            <!-- <td>4000원</td> -->
+            <td>내장없음</td>
+        </tr>
+        <tr>
+            <td colspan="3">순대(품절)</td>
+
+            
+        </tr>
+    </table>
+    <h3>자리표</h3>
+    <table border="1" cellspacing="0" cellpadding="10" width="100%" style="text-align: center;">
+        <tr>
+            <td colspan="2">1</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td rowspan ="2" style="font-size:50px">4</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>6</td>
+            <td style="font-size:50px; color: red;">7</td>
+        </tr>
+
+    </table>
+    <h3>자리표2</h3>
+    <table border="1" cellspacing="0" cellpadding="5" width="100%" style="text-align: center;">
+        <tr>
+            <td>1</td>
+            <td>2</td>
+            <td rowspan="2">3</td>
+            <td>4</td>
+        </tr>
+        <tr>
+            <td colspan="2">5</td>
+            <td rowspan ="2">6</td>
+        </tr>
+        <tr>
+            <td>7</td>
+            <td colspan="2">8</td>
+        </tr>
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,133 @@
+/* 단일선택자
+    -전체   *
+    -태그   태그명
+    -클래스 .클래스명
+    -아이디 #아이디명
+*/
+/* 
+*{
+color:#220158;
+
+}
+
+li{
+color:#ff0000;
+
+}
+
+.orange{
+    color:rgb(251, 149, 16);
+
+}
+div.orange{
+    color:rgb(138,75,2)
+}
+
+#orange{
+color:#0000ff;
+
+} */
+
+/* 여러선택자 동시에 가능 */
+/* 
+ul, p, .orange{
+    color: green;
+} */
+
+/* 복합 형제 선택자 
+    -하위       A B
+    -자식       A > B 
+    -인접형제   A + B
+    -일반형제   A ~ B
+*/
+
+/* div .orange{
+    color: orange;
+}
+
+ul > .orange{
+    color:red;
+
+}
+
+ul + .orange{
+    color:green;
+
+} */
+
+/* 가상선택자
+    E:hover : E요소에 마우스가 올라가 있는동안
+    E:active : E요소를 클릭하는 동안
+    E:visited : E요소가 링크면, 접속한 이력 알려줌
+
+*/
+
+#google:hover{
+    font-weight: 700;
+    color: orangered
+}
+#naver:active{
+    font-weight: 700;
+    color:palevioletred
+}
+#daum:visited{
+    color:gray;
+}
+/* 
+.fruits span:first-child{
+    color:red;
+}
+.fruits p:first-child{
+    color:red;
+} p태그의 첫번째 자식요소가 아니라 실행 X */
+
+/* .fruits h3:last-child{
+    color:red;
+}
+.fruits *:nth-child(2n-1){
+    color: green;
+} */
+
+/* .fruits *:not(span){
+    color: blue;
+} */
+
+/* .number span:nth-child(odd){
+    color:green;
+}
+.number span:nth-child(even){
+    color:orange;
+} */
+
+.number span:nth-child(3n + 4){
+    color:red   ;
+}
+
+/* CSS 우선순위 */
+.test {
+    font-size: 24px;
+    font-weight: 700;
+}
+/* 전체선택자 */
+.test *{
+    color:gray;
+}
+/* 태그선택자>전체선택자 */
+.test span{
+    color: blue !important;
+    /* !important가 무조건 최우선 */
+}
+/* 클래스선택자>태그선택자 */
+.test .num{
+    color:green;
+}
+/* 아디이선택자>클래스선택자 */
+.test #two{
+    color:purple;
+
+}
+/* 인라인스타일>아이디선택자 */
+
+
+
+

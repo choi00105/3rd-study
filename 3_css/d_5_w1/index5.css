@@ -1,0 +1,63 @@
+body{
+    margin:0;
+    padding:0;
+
+    height: 200px;
+    background-color: antiquewhite;
+    overflow: scroll;
+}
+
+div{
+    width: 100px;
+    height: 100px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 100px;
+    /* 세로로 가운데 오게 height 값과 같은값 */
+}
+
+/*  position: static (default)
+    -기본값
+    -인라인 : 왼-->오
+    -블럭 : 위-->아래
+ */
+.position-static{
+    background-color: pink;
+}
+
+/*  position: relative (상대위치)
+    -자신이 원래 있어야 하는 위치 기준 이동
+    -top
+    -bottom
+    -right
+    -left
+ */
+.position-relative{
+    background-color: aqua;
+    position: relative;
+    /* top: 100px; */
+    /* bottom: 100px; */
+    /* left: 100px; */
+}
+/*  position: absolute (절대위치)
+    -body태그 기준
+    -relative 값을 갖는 조상이 있다면 (가장 가까운)해당요소 기준
+    -기준으로부터 지정된 값만큼 여백 지정
+ */
+.position-absolute{
+    background-color: gold;
+    position: absolute;
+    /* top: 0;
+    right: 0; */
+    /* left:50px; */
+    bottom:0px;
+}
+
+/*  position: fixed (고정위치)
+    -뷰포트 기준
+    */
+.position-fixed{
+    background-color: brown;
+    position:fixed;
+    top: 0px;
+}

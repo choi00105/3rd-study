@@ -1,0 +1,67 @@
+body{
+    /* 기본폰트는 보통 body 태그에 작성 */
+    font-family: 'Noto Sans KR', sans-serif;
+
+    
+    /* 보통 body태그 안에 */
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 5px;
+}
+h1{
+    font-family: 'Acme', sans-serif;
+}
+div{
+    color: royalblue;
+    /* background-color: pink; */
+    /* background: linear-gradient(yellow, pink); */
+    background: linear-gradient(30deg, yellow, pink);
+    height:300px;
+
+
+    font-size: 50px;
+
+    /* ligther 얇게 normal bold... &  100~900까지로 지정가능*/
+    font-weight: bold;
+
+    /* 글씨체 */
+    /* font-family: georgia; */
+
+    /* 영어, 한글 글꼴 다르게 */
+    font-family: Georgia,'Malgen Gothic';
+
+    /* font-style:italic */
+
+    width: 200px;
+    /* height: 200px */
+
+    /* 테두리, style을 지정해야 width, color 의미있어짐 */
+    /* border-style: solid;
+    border-width: 10px;
+    border-color: limegreen; */
+
+    /* border: width style color 순 */
+    /* border: 10px solid lime; */
+
+    /* w,h 크기 같고 radius 50%하면 원 */
+    /* border-radius: 50%; */
+    border-radius: 5px 20px 45px 80px; 
+
+    border-right: 10px solid lime;
+    
+
+}
+
+p{
+    font-size: 50px;
+    font-weight: 700;
+
+    border: 1px solid black;
+
+    /* 그림자 */
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .4);
+    text-shadow: 1px 1px 2px blue;
+
+
+
+}

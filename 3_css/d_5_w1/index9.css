@@ -1,0 +1,46 @@
+body{
+    padding-bottom: 500px;
+}
+.d-inline1{
+    background-color: red;
+    display: inline;
+}
+.d-inline2{
+    background-color: blue;
+    display: inline;
+    
+    }
+    /* inline요소는 사이즈 적용 의미 x */
+
+.d-block1{
+    display: block;
+    background-color: red;
+    width: 1200px;
+    height: 200px;
+    padding: 10px 30px;
+
+}
+.d-block2{
+    display: block;
+    background-color: blue;
+    width: 100%;
+}
+
+.inline-block1{
+    display: inline-block;
+    background-color: red;
+    
+}
+.inline-block2{
+    display: inline-block;
+    background-color: blue;
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+}
+.d-none{
+    display: none;
+    width: 100px;
+    height: 100px;
+    background-color: green;
+}
