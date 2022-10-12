@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습19</title>
+    <style>
+        button{
+            background-color: black;
+            color: aliceblue;
+        }
+
+        img{
+            width: 400px;
+            height: 300px;
+            border: 10px solid yellow;
+            border-radius: 10%;
+
+        }
+        div{
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+    <!-- CDN (Content Dilivery Network) -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>실습19</h1>
+    
+    <div><img src="./img/q.jpg" alt="과일"><br>
+        <button onclick="attr1()">사과</button>
+        <button onclick="attr2()">바나나</button>
+        <button onclick="attr3()">포도</button>
+        <button onclick="attr4()">복숭아</button>
+    </div>
+    
+
+    <script>
+        function attr1(){
+            $('img').attr('src', './img/apple.jpg')
+        }
+        function attr2(){
+            $('img').attr('src', './img/bananas.jpg')
+        }
+        function attr3(){
+            $('img').attr('src', './img/grapes.jpg')
+        }
+        function attr4(){
+            $('img').attr('src', './img/peaches.jpg')
+        }
+
+    </script>
+</body>
+</html>
