@@ -84,6 +84,16 @@ app.post('/upload/array', uploadDetail.array('userfiles'), function (req, res) {
     }
   );
 
+  // 4. 동적 파일 업로드
+  app.post('/dynamicFile', uploadDetail.single('dynamicfile'), function (req, res){
+    console.log('new============');
+
+    console.log(req.file);
+    console.log('new============');
+    res.send(req.file);
+  });
+
 app.listen(PORT, function (req, res) {
   console.log(`http://localhost:${PORT}`);
+  
 });

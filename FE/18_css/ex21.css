@@ -1,0 +1,28 @@
+body {
+    box-sizing: border-box;
+    /* content + border + padding -> 크기로 계산  */
+}
+
+.boxs{
+    width: 150px;
+    height: 150px;
+    background-color: black;
+    border-radius: 10%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.mbox {
+    display: flex;
+}
+
+@media (max-width: 700px) {
+    .mbox{
+        display: flex;
+        flex-direction: column;
+        
+    }
+    .boxs{
+        background-color: skyblue;
+
+    }
+}

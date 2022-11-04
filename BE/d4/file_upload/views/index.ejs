@@ -8,6 +8,8 @@
 
   </head>
   <body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <h1><%= title %></h1>
 
     <h2>Single file upload</h2>
@@ -33,6 +35,43 @@
       <input type="file" name="userfile2" /><br />
       <input type="text" name="title2" /><br />
       <button type="submit">업로드</button>
+
+      <h2>동적파일 업로드</h2>
+      <input type="file" name="dynamicfile" id="dynamicfile">
+      <button type="button" onclick="fileUpload();">업로드</button>
+      <br>
+      <img src="" width="200" alt="pic" class="profile">
     </form>
+    <script>
+      function fileUpload() {
+        console.log('click fileupload');
+
+        const formData = new FormData(); // 폼 객체를 생성함
+        const file = document.getElementById('dynamicfile');
+
+        console.dir(file); // file input
+        console.dir(file.files[0]); // file input에 들어간 파일 정보
+
+        formData.append('dynamicfile', file.files[0]);
+
+
+        //axios 통신
+        axios({
+          method: 'POST',
+          url: '/dynamicFile',
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data', //enctype="multipart/form-data"
+            // 'enctype': 'multipart/form-data', //enctype="multipart/form-data"
+          },
+        }).then(function (response){
+          console.log(response);
+          console.log(response.data);
+          console.log(response.data.path);
+          document.querySelector('img').src = response.data.path;
+          document.querySelector('img').classList.add('profile')
+        });
+      }
+    </script>
   </body>
 </html>

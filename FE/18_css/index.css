@@ -1,0 +1,58 @@
+.box {
+    margin-bottom: 100px;
+
+}
+
+.px{
+    width: 500px;
+    height: 500px;
+    background-color: palegoldenrod;
+}
+
+.pct-parent{
+    width: 500px;
+    height: 500px;
+    background-color: yellowgreen;
+}
+.pct-child{
+    width: 50%;
+    height: 50%;
+    background-color: palevioletred;
+}
+
+.em{
+    font-size: 2em;
+}
+.rem{
+    font-size: 2rem;
+}
+
+/* vw잘씀 */
+.vw{
+    width: 20vw;
+    height: 20vw;
+    background-color: coral;
+}
+.vw-font{
+    font-size: 8vw;
+}
+.vh{
+    width: 20vh;
+    height: 20vh;
+    background-color: skyblue;
+}
+
+/* body {
+    height: 100vh;
+} */
+
+:root {
+    --color-primary: #845e2c;
+    --height-header: 100px;
+}
+
+.my-div {
+    background-color: var(--color-primary);
+    width: 200px;
+    height: var(--height-header);
+}

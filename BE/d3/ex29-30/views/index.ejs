@@ -18,38 +18,38 @@
     <h1><%= title1 %></title></h1><hr>
     <h2>실습 29. axios get 회원가입</h2>
     <form action="" method="get" name="form1">
-        이름<input type="text" name="name" id="name" >
+        이름<input type="text" name="name" id="name" required>
         <fieldset>
             <legend>성별</legend>
-            <input type="radio" name="gender" id="male" value="남자" required checked>남자
+            <input type="radio" name="gender" id="male" value="남자" required >남자
             <input type="radio" name="gender" id="female" value="여자">여자
         </fieldset>
         <fieldset>
             <legend>생년월일</legend>
-            <select name="birthYear" id="birthYear">
-                <option value="2010" checked>2010</option>
-                <option value="2009">2009</option>
-                <option value="2008">2008</option>
+            <select name="birthYear" id="birthYear" required>
+                <% for (let i = 0; i < 50; i++) { %>
+                <option value="<%= 2010 - i %>"><%= 2010 - i %></option>
+                <% } %>
             </select>
             <label for="birthYear">년</label>
             
-            <select name="birthMonth" id="birthMonth">
-                <option value="1">1</option>
-                <option value="2" >2</option>
-                <option value="3">3</option>
+            <select name="birthMonth" id="birthMonth" required>
+                <% for (let i = 1; i < 13; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+                <% } %>
             </select>
             <label for="birthMonth">월</label>
             
-            <select name="birthDay" id="birthDay">
-                <option value="1">1</option>
-                <option value="2" >2</option>
-                <option value="3">3</option>
+            <select name="birthDay" id="birthDay" required>
+                <% for (let i = 1; i < 31; i++) { %>
+                <option value="<%= i %>"><%= i %></option>
+                <% } %>
             </select>
             <label for="birthDay">일</label>
             </fieldset>
-        <fieldset>
+        <fieldset required>
             <legend>관심사</legend>
-            <input type="checkbox" name="inter" id="trev" value="여행" checked/>
+            <input type="checkbox" name="inter" id="trev" value="여행" required/>
             <label for="gimbap">여행</label>
             <input type="checkbox" name="inter" id="fash" value="패션"/>
             <label for="pasta">패션</label>
@@ -79,8 +79,10 @@
 
         function axiosGet() {
             console.log('######click axiosGet #####');
-
             const form = document.forms['form1'];
+            console.log(form.name.checkValidity());
+            console.log(form.gender[0].checkValidity());
+
             const data = {
                 name: form.name.value,
                 gender: form.gender.value,
@@ -89,6 +91,10 @@
                 day: form.birthDay.value,
             };
             //AXIOS 비동기 통신 - GET 요청
+            if(form.name.checkValidity()===true && 
+            form.gender[0].checkValidity()===true &&
+            form.birthYear.checkValidity()===true &&
+            form.inter[0].checkValidity() ===true){
             axios({
                 method: 'GET',
                 url: '/axios',
@@ -97,12 +103,17 @@
                 console.log(response);  // 서버의 응답결과
                 console.log(response.data); // rex.send(req.query)
                 console.log(response.data.name); // rex.send(req.query)
+                
                 resultBox1.textContent = `${data.name}님 환영합니다! 가입이 완료되었습니다.`
                 resultBox1.style.color = 'blue';
+                
             });
+            } else {
+                resultBox1.textContent = '입력값을 올바르게 채워주세요';
+                resultBox1.style.color = 'red'
+            }
         }
         function axiosPost() {
-            console.log('######click axiosPost #####');
 
             const form = document.forms['form2'];
             const data = {
@@ -125,8 +136,8 @@
                 // resultBox2.textContent = `${id}님! 로그인 성공`;
                 // resultBox2.style.color = 'blue';
             // }else {
-                resultBox2.textContent =`${response.data.msg}`;
-                resultBox2.style.color = `${response.data.color}`;
+                resultBox2.textContent =`${response.data.msg} ♥👍`;
+                resultBox2.style.color = `${response.data.color}🤔`;
             // }
 
         }); 

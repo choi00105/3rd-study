@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습31</title>
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <h1><%= title %></h1>
+    <form action="/upload" name="form1" method="post" enctype="multipart/form-data">
+        <input type="text" name="userid" id="userid" placeholder="아이디"><br>
+        <input type="password" name="userpw" id="userpw" placeholder="비밀번호"><br>
+        <input type="text" name="username" id="username" placeholder="이름"><br>
+        <input type="text" name="userage" id="userage" placeholder="나이"><br>
+        <input type="file" name="userfile" id="userfile"><br>
+        <br><br>
+        <button type="submit" onclick="axiosPost()">회원가입</button>
+    </form>
+
+    <script>
+
+function axiosPost() {
+
+const form = document.forms['form1'];
+const data = {
+    id: form.userid.value,
+    pw: form.userpw.value,
+    name: form.username.value,
+    age: form.userage.value,
+    
+};
+axios({
+method: 'POST',
+url: '/upload',
+data: data, // POST 요청은 "data"에 정보를 실어서 보내야 됨
+}).then(function (res) {
+console.log(res)
+}); 
+}
+    </script>
+</body>
+</html>
