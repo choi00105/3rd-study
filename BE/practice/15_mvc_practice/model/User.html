@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        
+const users = 'apple//1234//사과사과\nbanana//4321//바나나나나\nhappy//qwer1234//해피해피';
+
+const userInfo = users.split('\n')
+
+const user1=userInfo[0];
+const user2=userInfo[1];
+const user3=userInfo[2];
+console.log(user1);
+console.log(user2);
+console.log(user3);
+const u1detail = user1.split('//');
+const u2detail = user2.split('//');
+const u3detail = user3.split('//');
+console.log(u1detail[0]);
+console.log(u1detail[1]);
+console.log(u1detail[2]);
+
+    </script>
+</body>
+</html>
