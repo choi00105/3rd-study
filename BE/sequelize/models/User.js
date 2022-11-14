@@ -1,10 +1,4 @@
-
-// visitor 모델(->테이블 구조) 정의
-
-// const { Model } = require("sequelize"); // 뭐지 이건??
-
-// 시퀄라이즈 모델이랑 mysql table 연결
-const Visitor = function (Sequelize, DataTypes) {
+const User = function (Sequelize, DataTypes) {
     // Sequelize: medels/index.js 의 sequelize
     // DataType: models/index.js 의 Sequelize
 
@@ -13,8 +7,8 @@ const Visitor = function (Sequelize, DataTypes) {
     // param2: 컬럼 정의 -> 객체
     // param3: 모델 옵션 정의 -> 객체
     
-    const model = Sequelize.define(
-        'visitor',
+    return Sequelize.define(
+        'user',
         {
             // id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
             // 공식 문서에서 검색하가며 하면 됨
@@ -24,23 +18,26 @@ const Visitor = function (Sequelize, DataTypes) {
                 primaryKey: true,
                 autoIncrement: true,
             },
+            userid: {
+                type: DataTypes.STRING(20),
+                allowNull: false,
+            },
             name: {
                 type: DataTypes.STRING(10),
                 allowNull: false,
             },
-            comment: {
-                type: DataTypes.TEXT('medium'),
-
+            pw: {
+                type: DataTypes.STRING(20),
+                allowNull: false,
             },
         },
         {
-            tableName: 'visitor', // 실제 DB의 테이블 이름
+            tableName: 'user', // 실제 DB의 테이블 이름
             freezeTableName: true, // 테이블 이름 고정
             timestamps: false, // 데이터가 추가/수정되는 시간을 자동으로 컬럼 만들어서 기록
         }
     );
 
-    return model;
 };
 
-module.exports = Visitor;
+module.exports = User;

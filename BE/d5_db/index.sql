@@ -34,6 +34,7 @@ CREATE TABLE user (
     age INT NOT NULL,
     address VARCHAR(100)
 );
+
 CREATE TABLE member1 (
     id VARCHAR(20) NOT NULL PRIMARY KEY,
     name VARCHAR(5) NOT NULL,

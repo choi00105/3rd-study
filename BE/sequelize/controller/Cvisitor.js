@@ -6,6 +6,7 @@ exports.main = (req, res) => {
   res.render('index');
 };
 
+
 exports.getVisitors = (req, res) => {
  // 수정 전
   // Visitor.getVisitors((result) => {
@@ -102,7 +103,7 @@ exports.deleteVisitor = (req, res) => {
   models.Visitor.destroy({
     where: {id: req.body.id},
   }).then((result) => {
-    console.log('destroy 결과', result);
+    console.log('destroy 결과', result); // [ 1 ] : 1개 업테이트 했다는 뜻
     res.send('삭제 성공!!!');
   });
 };

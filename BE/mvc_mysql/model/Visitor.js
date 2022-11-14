@@ -23,7 +23,7 @@ exports.getVisitor = (id, callback) => {
         if (err) {
             throw err;
         }
-        console.log('보고 싶다 Visitor.js', rows);
+        console.log('Visitor.js', rows);
         callback(rows[0]);
     });
 } ;

@@ -13,10 +13,13 @@ let sequelize = new Sequelize(config.database, config.username, config.password,
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 // DB = 빈 객체 -> {sequelize: sequelize, Sequelize: Sequelize}
+
 db.Visitor = require('./Visitor')(sequelize, Sequelize);
 // models/Visitor.js 정의한 model이 db.Visitor에 들어감
-// db = { sequelize: sequelize, Sequelize: Sequelize, Visitor}
+// db = { sequelize: sequelize, Sequelize: Sequelize, Visitor: model }
+
+db.User = require('./User')(sequelize, Sequelize);
 
 
 module.exports = db;
-// db변수를 내보냄
+// db 변수 내보냄 -> 다른 파일에서 사용하기 떄문
