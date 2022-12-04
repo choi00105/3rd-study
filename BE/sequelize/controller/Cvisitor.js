@@ -8,6 +8,7 @@ exports.main = (req, res) => {
 
 
 exports.getVisitors = (req, res) => {
+  console.log('get 도나요!@@@@@@@@@@@@@')
  // 수정 전
   // Visitor.getVisitors((result) => {
   //   console.log('Cvisitor.js', result); // [ {}, {}, {}, {} ]
@@ -103,7 +104,6 @@ exports.deleteVisitor = (req, res) => {
   models.Visitor.destroy({
     where: {id: req.body.id},
   }).then((result) => {
-    console.log('destroy 결과', result); // [ 1 ] : 1개 업테이트 했다는 뜻
     res.send('삭제 성공!!!');
   });
 };

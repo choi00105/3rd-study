@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>채팅 프로그램</title>
+
+    <!-- socket.io cdn -->
+    <script
+      src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+      integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      body {
+        padding-bottom: 1000px;
+      }
+
+      .chat-list {
+        background-color: skyblue;
+        width: 50%;
+        height: 500px;
+        padding: 10px;
+      }
+
+      .chat-list div {
+        margin-top: 3px;
+      }
+
+      .chat-list div div {
+        display: inline-block;
+        padding: 3px;
+      }
+
+      .my-chat {
+        text-align: right;
+      }
+
+      .my-chat div {
+        background-color: yellow;
+      }
+
+      .other-chat div {
+        background-color: white;
+      }
+
+      .notice {
+        text-align: center;
+        color: navy;
+        font-size: 12px;
+      }
+
+      .d-none {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Socket.io</h1>
+
+    <!-- [실습44-2] 채팅창 입장 문구 안내 socket.it -> nickname -->
+    <div class="entry-box">
+      <input type="text" id="nickname" placeholder="닉네임" autofocus />
+      <button type="button" onclick="entry();">입장</button>
+    </div>
+
+    <!-- [실습43] 채팅창 UI 만들기 -->
+    <div class="chat-box d-none">
+      <div id="chat-list" class="chat-list">
+        <!-- [실습43] 임시 데이터 -->
+        <!-- <div class="my-chat">
+          <div>user1: msg1</div>
+        </div>
+        <div class="other-chat">
+          <div>user2: msg2</div>
+        </div>
+        <div class="notice">xx가 입장했습니다.</div> -->
+      </div>
+      <select id="nick-list">
+        <!-- <option value="all">전체</option>
+        <option value="socketId1">nick1</option>
+        <option value="socketId2">nick2</option> --></select
+      >에게
+      <input type="text" id="message" />
+      <button type="button" onclick="send();">전송</button>
+    </div>
+
+    <script>
+      let socket = io.connect(); // socket 사용을 위한 객체 생성
+      let myNick; // 내 닉네임 설정
+
+      socket.on('connect', () => {
+        console.log('**** ⭕ Client Socket Connected >>', socket.id);
+      });
+
+      // [실습44] 채팅창 입장 안내 문구
+      // notice 이벤트를 받아서 공지 문구를 출력
+      socket.on('notice', (msg) => {
+        console.log('socket on notice >> ', msg);
+
+        document
+          .querySelector('#chat-list')
+          .insertAdjacentHTML('beforeend', `<div class="notice">${msg}</div>`);
+      });
+
+      // [실습44-2] 채팅창 입장 안내 문구 socket.id -> nickname
+      function entry() {
+        // console.log(document.querySelector('#nickname').value);
+        socket.emit('setNick', document.querySelector('#nickname').value);
+      }
+
+      socket.on('entrySuccess', (nick) => {
+        myNick = nick;
+
+        // 입력창 비활성화
+        document.querySelector('#nickname').disabled = true;
+        // [입장] 버튼 비활성화
+        document.querySelector('.entry-box > button').disabled = true;
+        // 채팅 박스를 보여줌
+        document.querySelector('.chat-box').classList.remove('d-none');
+      });
+
+      // 'error' 이벤트 받기 -> on
+      // alert() 메세지 출력
+      socket.on('error', (data) => {
+        alert(data);
+      });
+
+      // [실습45] 채팅창 메세지 전송 Step1
+      // "send" 이벤트 전송하기
+      function send() {
+        const data = {
+          myNick: myNick,
+          msg: document.querySelector('#message').value,
+        };
+        socket.emit('send', data);
+      }
+
+      // [실습45] 채팅창 메세지 전송 Step2
+      // "newMessage" 이벤트를 전달받기 { 닉네임, 메세지내용 }
+      // data => { nick: 'a', msg: 'hello' }
+      socket.on('newMessage', (data) => {
+        console.log('socket on newMessage >> ', data);
+
+        // 생성해야할 채팅 html 구조
+        // <div class="my-chat">
+        //   <div>user1: msg1</div>
+        // </div>
+        // <div class="other-chat">
+        //   <div>user2: msg2</div>
+        // </div>
+        let chatList = document.querySelector('#chat-list'); // #chat-list 선택
+        let div = document.createElement('div'); // .my-chat or .other-chat 생성
+        // <div></div>
+        let divChat = document.createElement('div'); // 가장 안쪽 div (메세지 박스) 생성
+        // <div></div>
+
+        // 새 메세지(data => { nick: 'a', msg: 'hello' })가 도착했는데
+        // myNick에 저장된 현재 내 닉네임과
+        // 새 메세지(data)의 nick이 같다면, 내가 보낸 채팅
+        // 새 메세지(data)의 nick이 다르면, 상대방이 보낸 채팅
+        if (myNick === data.nick) {
+          div.classList.add('my-chat'); // <div class="my-chat"></div>
+        } else {
+          div.classList.add('other-chat'); // <div class="other-chat"></div>
+        }
+
+        divChat.textContent = `${data.nick} : ${data.msg}`; // <div>nick : msg</div>
+        div.append(divChat);
+        chatList.append(div);
+      });
+
+      // [실습46] DM 기능 추가
+      socket.on('updateNicks', (nickArray) => {
+        console.log('socket on updateNicks >> ', nickArray);
+
+        // 미션!!!!!!!
+        // 유저목록 하나하나를 option태그로 만들어서 select에 추가
+        // select 태그 내부에 추가되어야 할 코드 형식
+        // <option value="all">전체</option>
+        // <option value="socketId1">nick1</option>
+        // <option value="socketId2">nick2</option>
+        let options = `<option value="all">전체</option>`; // 모든 option 태그들
+
+        // 1. 반복문 사용해서 option 태그 하나하나 완성
+        for (const key in nickArray) {
+          // options = options + `<option value="${key}">${nickArray[key]}</option>`; // x = x + 1
+          options += `<option value="${key}">${nickArray[key]}</option>`; // x += 1
+        }
+        console.log(options);
+
+        // 2. select 태그에 option 태그들을 추가
+        // select태그.innerHTML = options;
+        document.querySelector('#nick-list').innerHTML = options;
+      });
+    </script>
+  </body>
+</html>
+
+
+// 최종
+const express = require('express');
+const app = express();
+// socket은 express가 아닌 http 모듈에 연결해야 사용 가능
+const http = require('http').Server(app);
+const io = require('socket.io')(http); // http-socket 연결
+const PORT = 8000;
+
+app.set('view engine', 'ejs');
+app.use('/views', express.static(__dirname + '/views'));
+
+app.get('/', (req, res) => {
+  res.render('chat');
+});
+
+const nickArray = {}; // 유저 목록
+
+// [실습46] DM 기능 구현
+// 유저 목록 업데이트 (유저 입장, 퇴장)
+function updateList() {
+  io.emit('updateNicks', nickArray); // { socket.id: nick1, socket.id: nick2, ... }
+}
+
+// io.on()
+// : socket과 관련된 통신작업을 처리
+io.on('connection', (socket) => {
+  // "connection" event
+  // : 클라이언트가 접속했을 때 발생, 콜백으로 socket 객체를 제공!
+
+  console.log('**** ⭕ Server Socket Connected >> ', socket.id);
+  // socket.id: 소켓 고유 아이디 -> socket은 웹 페이지 별로 생김!!
+
+  // [실습44] 채팅창 입장 안내 문구
+  // io.emit('notice', `${socket.id.slice(0, 5)}님이 입장하셨습니다.`);
+
+  // [실습44-2] 채팅창 입장 안내 문구 socket.id -> nickname
+  socket.on('setNick', (nick) => {
+    // 프론트에서 입력한 닉네임 값
+    console.log('socket on setNick >> ', nick);
+
+    // nickArray: { socketId1: nick1, socketId2: nick2, ... }
+    // -> Object.values(): [ nick1, nick2, nick2, ... ]
+    // -> indexOf(): nick 이 존재하는지
+    // 힌트: method1().method2().method3()
+    if (Object.values(nickArray).indexOf(nick) > -1) {
+      // 닉네임 중복이 있다면
+      socket.emit('error', '이미 존재하는 닉네임입니다. 다시 시도해주세요.');
+    } else {
+      // 닉네임 중복이 없다면
+      nickArray[socket.id] = nick; // { socket.id: nick }
+      console.log('접속 유저 목록 >> ', nickArray);
+      io.emit('notice', `${nick}님이 입장하셨습니다.`);
+      socket.emit('entrySuccess', nick);
+      updateList(); // 유저목록 업데이트
+    }
+  });
+
+  // [실습44-3] 접속자 퇴장시
+  // "notice" 이벤트로 퇴장 공지
+  socket.on('disconnect', () => {
+    // 1. socket.id 콘솔로그 찍기
+    console.log('**** ❌ Server Socket Disconnect >> ', socket.id);
+    // 2. 전체 공지 ('notice' , 퇴장메세지(유저 닉네임포함해서))
+    io.emit('notice', `${nickArray[socket.id]}님이 퇴장하셨습니다.`);
+    //  ex. aa님이 퇴장하셨습니다.
+    // 3. nickArray에서 해당 유저 삭제 (객체에서 key-value 쌍 삭제)
+    // delete 연산자 활용
+    delete nickArray[socket.id];
+
+    updateList(); // 유저목록 업데이트
+  });
+
+  // [실습45] 채팅창 메세지 전송 Step1
+  socket.on('send', (data) => {
+    console.log('socket on send >> ', data); //  { myNick: 'a', dm: 'all | 특정닉네임', msg: 'cc' }
+    // 전체; socket on send >>  { myNick: 'x', dm: 'all', msg: 'dd' }
+    // 특정유저; socket on send >>  { myNick: 'zz', dm: '1q50EKrp0sOCwbh7AAAD', msg: 'aaa' }
+
+    if (data.dm !== 'all') {
+      // [실습46] DM 기능
+      let dmSocketId = data.dm; // 특정 유저의 socket id
+      const sendData = { nick: data.myNick, msg: data.msg, dm: '(속닥속닥) ' };
+      io.to(dmSocketId).emit('newMessage', sendData); // 특정 소켓아이디에게만 DM 메세지 전송
+      socket.emit('newMessage', sendData); // 자기 자신에게도 DM 메세지 전송
+    } else {
+      // [실습45] 채팅창 메세지 전송 Step2
+      const sendData = { nick: data.myNick, msg: data.msg };
+      io.emit('newMessage', sendData);
+    }
+  });
+});
+
+// 주의!!!) 소켓을 사용하기 위해서는 http.listen()으로 포트를 열어야 함
+http.listen(PORT, () => {
+  console.log(`http://localhost:${PORT}`);
+});
+
+===================================
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>채팅 프로그램</title>
+
+    <!-- socket.io cdn -->
+    <script
+      src="https://cdn.socket.io/4.5.3/socket.io.min.js"
+      integrity="sha384-WPFUvHkB1aHA5TDSZi6xtDgkF0wXJcIIxXhC6h8OT8EH3fC5PWro5pWJ1THjcfEi"
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      body {
+        padding-bottom: 1000px;
+      }
+
+      .chat-list {
+        background-color: skyblue;
+        width: 50%;
+        height: 250px;
+        padding: 10px;
+      }
+
+      .chat-list div {
+        margin-top: 3px;
+      }
+
+      .chat-list div div {
+        display: inline-block;
+        padding: 3px;
+      }
+
+      .my-chat {
+        text-align: right;
+      }
+
+      .my-chat div {
+        background-color: yellow;
+      }
+
+      .other-chat div {
+        background-color: white;
+      }
+
+      .notice {
+        text-align: center;
+        color: navy;
+        font-size: 12px;
+      }
+
+      .d-none {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Socket.io</h1>
+
+    <!-- [실습44-2] 채팅창 입장 문구 안내 socket.it -> nickname -->
+    <div class="entry-box">
+      <input type="text" id="nickname" placeholder="닉네임" autofocus />
+      <button type="button" onclick="entry();">입장</button>
+    </div>
+
+    <!-- [실습43] 채팅창 UI 만들기 -->
+    <div class="chat-box d-none">
+      <div id="chat-list" class="chat-list">
+        <!-- [실습43] 임시 데이터 -->
+        <!-- <div class="my-chat">
+          <div>user1: msg1</div>
+        </div>
+        <div class="other-chat">
+          <div>user2: msg2</div>
+        </div>
+        <div class="notice">xx가 입장했습니다.</div> -->
+      </div>
+      <select id="nick-list">
+        <!-- <option value="all">전체</option>
+        <option value="socketId1">nick1</option>
+        <option value="socketId2">nick2</option> --></select
+      >에게
+      <input type="text" id="message" />
+      <button type="button" onclick="send();">전송</button>
+    </div>
+
+    <script>
+      let socket = io.connect(); // socket 사용을 위한 객체 생성
+      let myNick; // 내 닉네임 설정
+
+      socket.on('connect', () => {
+        console.log('**** ⭕ Client Socket Connected >>', socket.id);
+      });
+
+      // [실습44] 채팅창 입장 안내 문구
+      // notice 이벤트를 받아서 공지 문구를 출력
+      socket.on('notice', (msg) => {
+        console.log('socket on notice >> ', msg);
+
+        document
+          .querySelector('#chat-list')
+          .insertAdjacentHTML('beforeend', `<div class="notice">${msg}</div>`);
+      });
+
+      // [실습44-2] 채팅창 입장 안내 문구 socket.id -> nickname
+      function entry() {
+        // console.log(document.querySelector('#nickname').value);
+        socket.emit('setNick', document.querySelector('#nickname').value);
+      }
+
+      socket.on('entrySuccess', (nick) => {
+        myNick = nick;
+
+        // 입력창 비활성화
+        document.querySelector('#nickname').disabled = true;
+        // [입장] 버튼 비활성화
+        document.querySelector('.entry-box > button').disabled = true;
+        // 채팅 박스를 보여줌
+        document.querySelector('.chat-box').classList.remove('d-none');
+      });
+
+      // 'error' 이벤트 받기 -> on
+      // alert() 메세지 출력
+      socket.on('error', (data) => {
+        alert(data);
+      });
+
+      // [실습45] 채팅창 메세지 전송 Step1
+      // "send" 이벤트 전송하기
+      function send() {
+        const data = {
+          myNick: myNick, // "entrySuccess" 이벤트에서 입장 성공시 설정하는 내 닉네임
+          dm: document.querySelector('#nick-list').value, // 현재 선택된 select 태그의 option 값
+          msg: document.querySelector('#message').value,
+        };
+        socket.emit('send', data);
+      }
+
+      // [실습45] 채팅창 메세지 전송 Step2
+      // "newMessage" 이벤트를 전달받기 { 닉네임, 메세지내용 }
+      // data => { nick: 'a', msg: 'hello' }
+      socket.on('newMessage', (data) => {
+        console.log('socket on newMessage >> ', data);
+
+        // 생성해야할 채팅 html 구조
+        // <div class="my-chat">
+        //   <div>user1: msg1</div>
+        // </div>
+        // <div class="other-chat">
+        //   <div>user2: msg2</div>
+        // </div>
+        let chatList = document.querySelector('#chat-list'); // #chat-list 선택
+        let div = document.createElement('div'); // .my-chat or .other-chat 생성
+        // <div></div>
+        let divChat = document.createElement('div'); // 가장 안쪽 div (메세지 박스) 생성
+        // <div></div>
+
+        // 새 메세지(data => { nick: 'a', msg: 'hello' })가 도착했는데
+        // myNick에 저장된 현재 내 닉네임과
+        // 새 메세지(data)의 nick이 같다면, 내가 보낸 채팅
+        // 새 메세지(data)의 nick이 다르면, 상대방이 보낸 채팅
+        if (myNick === data.nick) {
+          div.classList.add('my-chat'); // <div class="my-chat"></div>
+        } else {
+          div.classList.add('other-chat'); // <div class="other-chat"></div>
+        }
+
+        // [실습46] DM 기능 추가
+        console.log('send data check >> !!!!', data);
+        // 전체: { nick: 'a', msg: 'xx' }
+        // dm: { nick: 'a', msg: 'xx', dm: '(속닥속닥) ' }
+        if (data.dm) {
+          div.classList.add('secret-chat');
+          divChat.textContent = data.dm; // (속닥속닥) 글자 추가
+        }
+
+        divChat.textContent += `${data.nick} : ${data.msg}`; // <div>(속닥속닥) nick : msg</div>
+        div.append(divChat);
+        chatList.append(div);
+      });
+
+      // [실습46] DM 기능 추가
+      socket.on('updateNicks', (nickArray) => {
+        console.log('socket on updateNicks >> ', nickArray);
+
+        // 유저목록 하나하나를 option태그로 만들어서 select에 추가
+        // select 태그 내부에 추가되어야 할 코드 형식
+        // <option value="all">전체</option>
+        // <option value="socketId1">nick1</option>
+        // <option value="socketId2">nick2</option>
+        let options = `<option value="all">전체</option>`; // 모든 option 태그들 저장할 변수
+
+        // 1. 반복문 사용해서 option 태그 하나하나 완성
+        for (const key in nickArray) {
+          options += `<option value="${key}">${nickArray[key]}</option>`; // x += 1
+        }
+
+        // 2. select 태그에 option 태그들을 추가
+        document.querySelector('#nick-list').innerHTML = options;
+      });
+    </script>
+  </body>
+</html>

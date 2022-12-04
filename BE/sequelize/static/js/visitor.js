@@ -4,7 +4,7 @@ const buttonGroup = document.querySelector('#button-group');
 // 폼 [등록] 버튼 클릭시
 // - 테이블에 데이터 추가
 function createVisitor() {
-  console.log('click 등록 버튼');
+  console.log('click 등록 버튼 >>>>>');
 
   // 폼 선택
   const form = document.forms['visitor-form'];
@@ -12,25 +12,25 @@ function createVisitor() {
   console.log(form.name.value); // name input 값의 value
   console.log(form.comment.value); // comment input 값의 value
 
-  if (!form.name.value.length) {
-    // !0 -> !false -> true
-    alert('이름 기입!!');
-    clearInput();
-    return;
-  }
+  // if (!form.name.value.length) {
+  //   // !0 -> !false -> true
+  //   alert('이름 기입!!');
+  //   clearInput();
+  //   return;
+  // }
 
-  if (!form.comment.value.length) {
-    // !0 -> !false -> true
-    alert('방명록 기입!!');
-    clearInput();
-    return;
-  }
+  // if (!form.comment.value.length) {
+  //   // !0 -> !false -> true
+  //   alert('방명록 기입!!');
+  //   clearInput();
+  //   return;
+  // }
 
-  if (form.name.value.length > 10) {
-    alert('이름은 10글자 미만!!');
-    clearInput();
-    return;
-  }
+  // if (form.name.value.length > 10) {
+  //   alert('이름은 10글자 미만!!');
+  //   clearInput();
+  //   return;
+  // }
 
   // name input value의 길이가 10글자 이하일 때
   axios({
@@ -166,10 +166,10 @@ function deleteVisitor(obj, id) {
   console.log(obj);
   console.log(id);
 
-  if (!confirm('정말 삭제하시겠습니까?')) {
-    // !false -> true
-    return;
-  }
+  // if (!confirm('정말 삭제하시겠습니까?')) {
+  //   // !false -> true
+  //   return;
+  // }
 
   axios({
     method: 'DELETE',

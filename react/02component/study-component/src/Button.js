@@ -6,7 +6,7 @@ const Button = (props) => {
   const {link, children} = props;
 
   return (
-    <a href={link} target="_blank">
+    <a href={link} target="_blank" rel="noreferrer">
       <button className="Button">{children}</button>
     </a>
   );

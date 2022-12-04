@@ -34,9 +34,52 @@ const { a, b } = { a:10, b:20 };
 console.log(a)
 console.log(b)
 
+const arr=['a', 'b', 'c'] ;
+// before
+console.log(arr[0]);
+console.log(arr[1]);
+console.log(arr[2]);
+// after
+const [one, two, three] = arr;
+console.log(one);
+console.log(two);
+console.log(three);
+// after2
+const [one2, two2, three2, four2 = 'hello'] = arr;
+console.log(one2);
+console.log(two2);
+console.log(three2);
+console.log(four2);
 
+const tv = {
+  name: 'tv name',
+  price: 300,
+  size: '50inch',
+  store: 'samsung'
+};
+// before
+// ver1. 점 참조 연산자
+console.log(tv.name);
+console.log(tv.price);
+console.log(tv.size);
+console.log(tv.store);
+// ver2. 대괄호 표기법
+console.log(tv['name']);
+console.log(tv['price']);
+console.log(tv['size']);
+console.log(tv['store']);
 
+// after
+// key: 변수명 -> 새로운 변수명을 '키'로 사용
+// key = "value" -> 새로운 키에 대한 값을 설정
+let { price, size, store, name, owner = 'Sean' } = tv;
+console.log(name);
+console.log(price);
+console.log(size);
+console.log(store);
+console.log(owner);
 
+////////////////////////////////////////////
 
 // spread 연산자 : 값을 펼치는 연산자
 
