@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-const Alphabet = () => {
+const Event_ex = () => {
   const [alphabets, setAlphabets] = useState([
     // 배열(state)에 고유 id를 갖도록 설정
   ]);
@@ -49,4 +49,4 @@ const Alphabet = () => {
   </div>;
 }
 
-export default Alphabet;
+export default Event_ex;
