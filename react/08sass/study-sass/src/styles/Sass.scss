@@ -1,0 +1,170 @@
+@import './utils.scss';
+
+.Sass {
+  display: flex;
+
+  .box {
+    width: $box-size;
+    height: $box-size;
+
+  @include box(120px, 100px);
+
+    // 중첩 안에서 &: 부모 선택자 참조하여 치환
+    &.red{
+      background-color: $color-red;
+    }
+    &.orange{
+      background-color: $color-orange;
+    }
+    &.yellow{
+      background-color: $color-yellow;
+    }
+    &.green{
+      background-color: $color-green;
+    }
+    &.blue{
+      background-color: $color-blue;
+    }
+    &.indigo{
+      background-color: $color-indigo;
+    }
+    &.purple{
+      background-color: $color-purple;
+    }
+
+    &:hover{
+      $this-animation: $animation-duration * 2;
+      cursor: pointer;
+      transform: translateY(-50px);
+      transition: transform $this-animation;
+    }
+
+  }
+}
+
+// @media (max-width: #{$breakpoint-md}){
+//   .Sass {
+//     flex-direction: column-reverse;
+//   }
+// }
+
+.Prob56 {
+  display: inline-block;
+  .circle{
+    @include circle(140px);
+  
+    &.c1{
+      background-color: $color-blue1;
+      // z-index: ;
+    }
+    &.c2{
+      background-color: $color-blue2;
+      margin: 50px 90px ;
+    }
+    &.c3{
+      background-color: $color-blue3;
+      margin: 100px 120px;
+    }
+    &.c4{
+      background-color: $color-blue4;
+      margin: 150px 200px;
+    }
+    &.c5{
+      background-color: $color-blue5;
+      margin: 160px 280px;
+    }
+    &.ce1{
+      background-color: $color-white;
+      width: 60px;
+      height: 60px;
+      margin: 20px 20px;
+    }
+    &.ce2{
+      background-color: $color-black;
+      width: 30px;
+      height: 30px;
+      margin: 35px 20px;
+    }
+  }
+}
+
+.Prob57 {
+  display: flex;
+  margin: 350px 0;
+  .circle {
+    @include circle(50px);
+  
+    &.c1 {
+      background-color: $color-pink;
+      @include moveClockwise(100px, 100px, 'one');
+    }
+    
+    &.c2 {
+      background-color: $color-yellow;
+      margin-top: 50px;
+      @include moveClockwise(200px, 200px, 'two');
+    }
+    &.c3 {
+      background-color: $color-green;
+      margin-top: 100px;
+
+      @include moveClockwise(300px, 300px, 'three');
+    }
+  }
+  
+}
+
+
+.Prob58{
+  text-align: center;
+  box-sizing: border-box;
+  header {
+    height: 80px;
+    line-height: 80px;
+    background-color: $color-58blue;
+    color: $color-white;
+    text-shadow: 28px;
+    font-weight: 700;
+  }
+  .PostItem {
+    text-align: left;
+    width: 50%;
+    background-color: $color-58lightblue;
+    margin: 40px auto;
+    box-shadow: 4px 4px 10px $color-black;
+    border-radius: 10px;
+    padding: 20px 30px;
+
+    &.id{
+      font-weight: 500;
+      margin-right: 8px;
+      color: $color-58blue;
+    }
+
+    &.title{
+      color: $color-58gray;
+    }
+    &.body{
+      font-size: 20px;
+
+    }
+    &:hover{
+      cursor: pointer;
+      transform: translateY(-10px);
+      transition: transform 0.4s;
+      &.id,
+      &.title{
+        font-weight: 700;
+
+      }
+    }
+
+    @media (max-width: 768px) {
+      & {
+        width: 90vw;
+      }
+    }
+  }
+  
+}
+

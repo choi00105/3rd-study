@@ -1,0 +1,71 @@
+// Color
+$color-red: red;
+$color-orange: orange;
+$color-yellow: yellow;
+$color-green: green;
+$color-blue: blue;
+$color-indigo: indigo;
+$color-purple: purple;
+
+$color-black: black;
+$color-white: rgb(255,255,255);
+
+$color-blue1: rgb(81, 81, 224);
+$color-blue2: rgb(58, 58, 174);
+$color-blue3: rgb(9, 9, 99);
+$color-blue4: rgb(148, 148, 231);
+$color-blue5: rgb(40, 102, 190);
+
+
+$color-pink: pink;
+$color-yellow: yellow;
+$color-green: green;
+
+$color-58blue: rgb(119, 164, 255);
+$color-58lightblue: rgb(243, 247, 255);
+$color-58gray: rgb(123,123,123);
+$shadow-black: rgba(0, 0, 0, 0.15);
+
+// Size
+$box-size: 150px;
+
+//Animation
+$animation-duration: 0.4s;
+
+// Breakpoint
+$breakpoint-md: 768px;
+
+@mixin box($w, $h) {
+  width: $w;
+  height: $h;
+  border: 2px solid $color-black
+}
+
+@mixin circle($size) {
+  width: $size;
+  height: $size;
+  border-radius: 50%;
+  position: absolute;
+
+}
+
+@mixin moveClockwise($x, $y, $i) {
+  @keyframes #{$i} {
+    0% {transform: translate(0, 0);}
+    25% {transform: translate($x, 0);}
+    50% {transform: translate($x, $y);}
+    75% {transform: translate(0, $y);}
+    100% {transform: translate(0,0);}
+  }
+  // transform: translate($x, $y);
+  // animation-name: clockwise1;
+  // animation-iteration-count: infinite;
+  // animation-duration: 4s;
+  animation: #{$i} 4s linear infinite;
+  // animation: clockwise2 4s linear infinite;
+}
+
+@mixin size($w, $h){
+  width: $w;
+  height: $h;
+}
