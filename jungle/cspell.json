@@ -3,7 +3,14 @@
     "ignorePaths": [],
     "dictionaryDefinitions": [],
     "dictionaries": [],
-    "words": [],
+    "words": [
+        "dbjungle",
+        "jsonify",
+        "KHTML",
+        "MSRSTE",
+        "pymongo",
+        "rjson"
+    ],
     "ignoreWords": [],
     "import": []
 }
